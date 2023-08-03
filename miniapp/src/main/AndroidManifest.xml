@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rakuten.tech.mobile.miniapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <provider
+            android:name="com.rakuten.tech.mobile.miniapp.MiniappSdkInitializer"
+            android:usesCleartextTraffic="false"
+            android:authorities="${applicationId}.MiniappSdkInitializer"
+            android:exported="false"
+            android:initOrder="99" />
+
+        <provider
+            android:name="com.rakuten.tech.mobile.miniapp.display.MiniAppDefaultFileProvider"
+            android:authorities="${applicationId}.miniapp.defaultfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/miniapp_default_file_provider_paths" />
+        </provider>
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
+    </queries>
+</manifest>

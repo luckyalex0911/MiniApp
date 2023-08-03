@@ -1,0 +1,70 @@
+configurations {
+  doclava
+}
+
+dependencies {
+  doclava 'com.google.doclava:doclava:1.0.6'
+}
+
+import java.nio.file.Paths
+
+if(!project.hasProperty('documentation')) project.ext.documentation = [:]
+
+task generateDoclava(type: Javadoc, group: 'publishing') {
+  dependsOn configurations.doclava, 'assembleRelease'
+
+  // Copy Images
+  doLast {
+    copy {
+      from "$projectDir/images"
+      into "$buildDir/javadocs/reference/images"
+    }
+  }
+
+  failOnError = project.documentation.failOnError != null ? project.documentation.failOnError : true
+  title = null
+
+  options {
+    project.afterEvaluate {
+      docletpath = configurations.doclava.files as List
+    }
+    doclet "com.google.doclava.Doclava"
+    memberLevel = JavadocMemberLevel.PROTECTED
+
+    if (project.documentation.javadocOverview) {
+      overview = project.documentation.javadocOverview
+    }
+
+    addStringOption "hdf project.name", "$project.name - $project.version"
+    addStringOption "hdf project.version", project.version
+    addStringOption "apiversion", project.version
+
+    addStringOption "federate android", "http://developer.android.com/reference"
+    // TODO: generate more recent android platform xml file
+    // see https://code.google.com/archive/p/doclava/wikis/FederatedDocs.wiki
+    addStringOption "federationxml android", Paths.get("$CONFIG.configDir", "documentation", "doclava", "android-22.xml").toString()
+    // TODO: generate doclava xml for support libs
+    // TODO: customize template
+    // addStringOption "templatedir", Paths.get(CONFIG.configDir, "documentation", "doclava", "template").toString()
+  }
+
+  project.afterEvaluate {
+    source = project.documentation.source ? project.documentation.source() : android.sourceSets.main.java.srcDirs
+    destinationDir = new File(buildDir, 'javadocs')
+
+    // Android
+    classpath += files(android.getBootClasspath())
+
+    // All the dependencies
+    classpath += android.libraryVariants.find { it.name == "release" }.javaCompileProvider.get().classpath
+
+    // Generated classes
+    classpath += files(Paths.get("$buildDir", "intermediates", "javac", "release"))
+
+    if(project.documentation.classpath) {
+      project.documentation.classpath.each {
+        classpath += files(it)
+      }
+    }
+  }
+}

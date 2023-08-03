@@ -1,0 +1,18 @@
+apply from: "$CONFIG.configDir/publish/base-artifact.gradle"
+
+task javaSourceJar(type: Jar) {
+  from sourceSets.main.allJava
+  archiveClassifier = 'sources'
+}
+
+ext.javaArtifact = { Map config ->
+  config = config ?: [:]
+
+  return baseArtifact(config) << {
+    from config.get('from') ?: components.java
+
+    if (!config.get('excludeSourceJar')) {
+      artifact javaSourceJar
+    }
+  }
+}

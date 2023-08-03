@@ -1,0 +1,154 @@
+apply from: '../config/android/library.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def numProperty = { key ->
+        return System.getenv(key) ?: (project.hasProperty(key) ? project."$key" : "0")
+    }
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules.pro'
+        buildConfigField "int", "ANALYTICS_ACC", numProperty("ANALYTICS_ACC")
+        buildConfigField "int", "ANALYTICS_AID", numProperty("ANALYTICS_AID")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+// Prevents test code compiled into binary.
+afterEvaluate {
+    android.sourceSets.all { sourceSet ->
+        if (!sourceSet.name.startsWith("test")) {
+            sourceSet.kotlin.setSrcDirs([])
+        }
+    }
+}
+
+dependencies {
+    def property = { key ->
+        return System.getenv(key) ?: (project.hasProperty(key) ? project."$key" : null)
+    }
+
+    compileOnly "javax.annotation:jsr250-api:$jsr250"
+
+    implementation "androidx.core:core-ktx:$androidx_coreKtx"
+    implementation "androidx.webkit:webkit:$webkit"
+    implementation "androidx.security:security-crypto:$androidx_crypto"
+    compileOnly "com.google.android.gms:play-services-ads:$google_ads"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraintLayout"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview"
+    implementation "androidx.browser:browser:$custom_tab"
+    implementation "androidx.documentfile:documentfile:$documentFile"
+
+    kapt "io.github.rakutentech.manifestconfig:manifest-config-processor:$manifest_config"
+    implementation "io.github.rakutentech.manifestconfig:manifest-config-annotations:$manifest_config"
+
+    implementation "androidx.sqlite:sqlite-ktx:$sqlite_db"
+    implementation "net.zetetic:android-database-sqlcipher:$sqlcipher"
+
+    testImplementation "androidx.test.ext:junit:$androidx_test_ext"
+    testImplementation "org.mockito:mockito-android:$mockito"
+    testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "org.mockito:mockito-inline:$mockito"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin"
+    testImplementation "org.amshove.kluent:kluent-android:$kluent_android"
+    testImplementation "org.json:json:$json_test"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines"
+    implementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation "org.robolectric:robolectric:$robolectric"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
+
+    if (property("GITHUB_USERNAME") != null) {
+        compileOnly ("com.rakuten.tech.mobile.analytics:analytics:$analytics_sdk") {
+            exclude group: 'com.rakuten.tech.mobile', module: 'manifest-config-processor'
+            exclude group: 'com.rakuten.tech.mobile', module: 'manifest-config-annotations'
+        }
+        testImplementation ("com.rakuten.tech.mobile.analytics:analytics:$analytics_sdk") {
+            exclude group: 'com.rakuten.tech.mobile', module: 'manifest-config-processor'
+            exclude group: 'com.rakuten.tech.mobile', module: 'manifest-config-annotations'
+        }
+    } else {
+        compileOnly project(':analytics')
+        testImplementation project(':analytics')
+    }
+
+    compileOnly project(':admob-latest')
+    testImplementation project(':admob-latest')
+
+    compileOnly project(':in-app-purchase')
+    testImplementation project(':in-app-purchase')
+}
+
+apply from: "../config/quality/checkstyle/android.gradle"
+apply from: '../config/quality/detekt/android.gradle'
+dependencies {
+    testImplementation project(path: ':miniapp')
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.9.1"
+}
+
+apply from: '../config/quality/jacoco/android.gradle'
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+tasks.withType(Test) {
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+apply from: '../config/documentation/dokka/android.gradle'
+dokkaGfm.configure {
+    dokkaSourceSets {
+        named("main") {
+            sourceRoots.from(file("src/main/java"))
+        }
+    }
+}
+
+apply from: '../config/publish/android.gradle'
+afterEvaluate {
+    publishing {
+        publications {
+            MiniApp(MavenPublication, androidArtifact())
+        }
+    }
+}
+def isSnapshot = project.version.contains('-')
+if (isSnapshot) {
+    ext["MAVEN_CENTRAL_IS_SNAPSHOT"] = true
+}
+apply from: '../config/publish/maven-central.gradle'
+
+project.ext.docPublishing = [
+        repoUri: 'git@github.com:rakutentech/android-miniapp.git'
+]
+apply from: '../config/publish/documentation/gh-pages.gradle'

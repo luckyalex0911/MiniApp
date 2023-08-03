@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rakuten.tech.mobile.miniapp.testapp">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Request Bluetooth permissions on Android 12+ -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- Request legacy Bluetooth permissions on older devices under Android 12 -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+
+    <application
+        android:name="com.rakuten.tech.mobile.testapp.SampleApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${appName}"
+        android:networkSecurityConfig="@xml/network_policy"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.miniapptabs.DemoAppMainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.display.MiniAppDisplayActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.input.MiniAppByUrlActivity"
+            android:label="@string/lb_display_url"
+            android:theme="@style/MaterialAppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.rakuten.tech.mobile.testapp.ui.display.WebViewActivity" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.GeneralSettingsActivity"
+            android:label="@string/lb_general" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.ContactAddActivity">
+        </activity>
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.ProfileSettingsActivity"
+            android:label="@string/action_profile" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.ContactListActivity"
+            android:label="@string/action_contacts" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.QASettingsActivity"
+            android:label="@string/action_qa" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.QAAnalyticsLogsActivity"
+            android:label="@string/action_analytics_log" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.AccessTokenActivity"
+            android:label="@string/lb_access_token" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.userdata.PointsActivity"
+            android:label="@string/action_points" />
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.deeplink.SchemeActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.CAMERA"> <!-- Added camera permission so that only apps(i.e QRcode scanner) with camera permission can open demo app. -->
+            <intent-filter
+                android:autoVerify="true"
+                android:label="@string/lb_filter_view_miniapp">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/miniappdemo_host"
+                    android:pathPrefix="@string/miniappdemo_pathprefix"
+                    android:scheme="@string/miniappdemo_scheme" />
+                <data
+                    android:host="@string/miniappdemo_host"
+                    android:pathPrefix="@string/settings_pathprefix"
+                    android:scheme="@string/miniappdemo_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.rakuten.tech.mobile.testapp.ui.deeplink.DynamicDeepLinkActivity"
+            android:label="@string/action_dynamic_deeplinks" />
+
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.BaseUrl"
+            android:value="${baseUrl}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.IsPreviewMode"
+            android:value="${isPreviewMode}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.RequireSignatureVerification"
+            android:value="${requireSignatureVerification}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.HostAppUserAgentInfo"
+            android:value="${hostAppUserAgentInfo}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.ras.ProjectId"
+            android:value="${projectId}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.ras.ProjectSubscriptionKey"
+            android:value="${subscriptionKey}" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${adMobAppId}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.analytics.RATAccountId"
+            android:value="${ratAcc}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.analytics.RATApplicationId"
+            android:value="${ratAid}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.analytics.RATEndpoint"
+            android:value="${ratEndpoint}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.EnableH5Ads"
+            android:value="${enableH5Ads}" />
+        <meta-data
+            android:name="com.rakuten.tech.mobile.miniapp.MaxStorageSizeLimitInBytes"
+            android:value="${maxStorageSizeLimitInBytes}\" />
+    </application>
+
+</manifest>

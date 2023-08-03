@@ -1,0 +1,11 @@
+ignore:
+  - "miniapp/src/main/java/com/rakuten/tech/mobile/miniapp/MiniApp.kt"
+  - "miniapp/src/main/java/com/rakuten/tech/mobile/miniapp/analytics/MiniAppAnalytics.kt"
+  - "miniapp/src/main/java/com/rakuten/tech/mobile/miniapp/closealert/MiniAppCloseAlertInfo.kt"
+coverage:
+  status:
+    patch: off
+    project:
+      default:
+        target: 80%
+        threshold: 4%

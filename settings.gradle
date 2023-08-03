@@ -1,0 +1,5 @@
+include ':admob-latest'
+include ':analytics'
+include ':in-app-purchase'
+include ':miniapp'
+include ':testapp'

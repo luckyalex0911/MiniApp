@@ -1,0 +1,13 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    input = files(projectDir)
+    config = rootProject.files('config/quality/detekt/detekt-config.yml')
+    reports {
+        xml { destination = file("${buildDir}/reports/detekt/detekt.xml") }
+        html { destination = file("${buildDir}/reports/detekt/detekt.html") }
+    }
+    autoCorrect = true
+}
+
+check.dependsOn 'detekt'

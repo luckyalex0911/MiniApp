@@ -1,0 +1,145 @@
+<resources>
+    <string name="lb_version">Version</string>
+    <string name="lb_description">Description</string>
+    <string name="lb_app_id_or_url">URL or App Id</string>
+    <string name="lb_app_url">URL</string>
+    <string name="lb_app_settings">Settings</string>
+    <string name="lb_preview_mode">Preview Mode</string>
+    <string name="lb_require_signature_verification">Require Signature Verification</string>
+    <string name="lb_enable_prod_version">Production</string>
+    <string name="lb_ras">RAS</string>
+    <string name="lb_miniapp_url_parameters">MiniApp URL Query Parameters</string>
+    <string name="lb_access_token">Access Token</string>
+    <string name="lb_valid_until">Expired Date</string>
+    <string name="lb_display_url">Display by URL</string>
+    <string name="lb_unique_id">Unique ID</string>
+    <string name="lb_filter_view_miniapp">Open MiniApp</string>
+    <string name="lb_secure_storage">Secure Storage</string>
+    <string name="lb_detect_bluetooth">Detect Bluetooth Device</string>
+
+    <string name="lb_auth_failure_error">Always Generate Authorization Error</string>
+    <string name="lb_other_error">Always Generate Custom Error</string>
+    <string name="hint_custom_error_message">Custom Error Message</string>
+
+    <string name="lb_unique_id_error">Always Generate Unique ID Error</string>
+    <string name="hint_unique_id_error">Unique ID Error Message</string>
+    <string name="hint_messaging_unique_id_error">Messaging Unique ID Error Message</string>
+    <string name="hint_mauid_error">MAUID Error Message</string>
+
+    <string name="hint_set_max_storage_limit">Upgrade Max Storage Limit in Bytes</string>
+    <string name="hint_enter_miniapp_id">Enter MiniApp Id</string>
+
+    <string name="hint_points_standard">Points (Standard)</string>
+    <string name="hint_points_time_limited">Points (Time-Limited)</string>
+    <string name="hint_points_rakuten_cash">Points (Rakuten Cash)</string>
+    <string name="hint_points_default_value">0</string>
+
+    <string name="menu_title_search">Search</string>
+    <string name="menu_title_settings">Settings</string>
+    <string name="menu_title_change_settings">Setting</string>
+    <string name="menu_hint_search_miniapps">Search by Name or ID</string>
+
+    <string name="userdata_edit_photo">Edit Photo</string>
+    <string name="userdata_hint_edit_name">Enter your name here</string>
+    <string name="userdata_error_empty_contact_id">Empty contact id, please try again.</string>
+    <string name="userdata_error_empty_contact_name">Empty contact name, please try again.</string>
+    <string name="userdata_error_empty_contact_email">Empty contact email, please try again.</string>
+    <string name="userdata_error_empty_contact_name_email">Empty contact name and email, please try again.</string>
+    <string name="userdata_error_invalid_contact_email">Invalid contact email, please input the correct format.</string>
+    <string name="userdata_warning_empty_contact_list">No contact available!</string>
+    <string name="userdata_warning_not_saved_contact">No contact has been saved yet</string>
+    <string name="userdata_contact_id">Contact id</string>
+    <string name="userdata_contact_name">Contact name</string>
+    <string name="userdata_contact_email">Contact email</string>
+    <string name="userdata_email_address_optional">Email Address (Optional)</string>
+
+    <string name="miniapp_preload_tutorial">Would you like to download this miniapp?</string>
+    <string name="miniapp_preload_perm_status_required">(Required)</string>
+
+    <string name="chat_message_head">Message</string>
+    <string name="chat_tutorial">Would you like to send the message?</string>
+
+    <string name="action_display">Display</string>
+    <string name="action_go_input_url">URL</string>
+    <string name="title_bundle_miniapp">MiniApp</string>
+    <string name="action_go_input_url_details">Open a miniapp via url</string>
+    <string name="action_load_miniapp_from_bundle">Load MiniApp From Bundle</string>
+    <string name="action_save">Save</string>
+    <string name="action_add">Add</string>
+    <string name="action_cancel">CANCEL</string>
+    <string name="action_update">Update</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_contacts">Contacts</string>
+    <string name="action_contact_add">Add Contact</string>
+    <string name="action_contact_update">Update Contact</string>
+    <string name="action_points">Points</string>
+    <string name="action_dynamic_deeplinks">Dynamic DeepLinks</string>
+    <string name="action_qa">QA</string>
+    <string name="action_custom_permissions">Custom Permissions</string>
+    <string name="action_first_time_accept">ACCEPT</string>
+    <string name="action_message_send">SEND</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_clear_miniapp">Clear MiniApp Storage</string>
+    <string name="action_detect_bluetooth">Start detect</string>
+    <string name="action_show_bluetooth">Show bluetooth devices</string>
+
+    <string name="hint_host_project_id">Host Project ID</string>
+    <string name="hint_subscription_key">Subscription Key</string>
+    <string name="hint_miniapp_url_parameters">param1=value1&amp;param2=value2</string>
+
+    <string name="error_empty">Required</string>
+    <string name="error_invalid_input">Invalid Input</string>
+
+    <string name="message_empty_miniapps">There is no Mini App found!</string>
+    <string name="message_empty_permissions">There is no permission found!</string>
+
+    <string name="tut_setting">This is the first time you launch the MiniApp Demo application on this device. You need to provide your own Host Project ID and Subscription Key from &lt;font color="#BF0000">&lt;b>Rakuten&lt;/b>&lt;/font> &lt;b>App Studio&lt;/b></string>
+
+    <string name="prefix_placeholder">%1$s %2$s</string>
+
+    <string name="error_title_miniapp_no_longer_exist">This mini app is not valid</string>
+    <string name="error_desc_miniapp_no_longer_exist">You can generate a valid QR code on Mini \nApp Platform.\nSee our Help Center for more details.</string>
+    <string name="error_title_miniapp_no_permission">This mini app is not valid</string>
+    <string name="error_desc_miniapp_no_permission">The Host App does not have permission to \na Mini App with this ID. \nSee our Help Center for more details.</string>
+    <string name="error_title_qr_code_expire">"The QR code is expired "</string>
+    <string name="error_desc_qr_code_expire">You can generate a new one on Mini App \nPlatform. See our Help Center for more \ndetails.</string>
+    <string name="error_title_miniapp_no_preview">MiniappName %1$s cannot be previewed now</string>
+    <string name="error_desc_miniapp_no_preview">Please check with the project \nadministrator. See our Help Center for \nmore details.</string>
+    <string name="error_title_miniapp_version_mismatch">" Version %1$s is not valid "</string>
+    <string name="error_desc_miniapp_version_mismatch">Please check with the project \nadministrator. See our Help Center for \nmore details.</string>
+    <string name="error_desc_promotional_text_missing">Promotional text is not available</string>
+    <string name="error_desc_miniapp_too_many_request">"Mini app is requested too many times.</string>
+    <string name="error_send_json_to_host_app_please_try_again">Unable to send the message: please try again</string>
+
+    <string name="success_title_parameters_saved">Parameters saved</string>
+    <string name="success_desc_parameter_saved">Configuration is saved and Miniapp list is updated</string>
+
+    <string name="help_center_text">Help Center</string>
+    <string name="lb_close">Close</string>
+
+    <string name="miniappdemo_scheme">miniappdemo</string>
+    <string name="miniappdemo_host">miniapp</string>
+    <string name="miniappdemo_pathprefix">/preview/</string>
+    <string name="settings_pathprefix">/settings</string>
+
+    <string name="deeplink_activity_error_empty">Empty deeplink, please try again.</string>
+    <string name="deeplink_activity_input_hint">Input here</string>
+    <string name="deeplink_activity_no_deeplink">No deeplink available!</string>
+    <string name="deeplink_activity_not_saved">No deeplink has been saved yet.</string>
+    <string name="miniapp_by_url">MiniApp By URL</string>
+
+    <string name="universal_bridge">Universal Bridge</string>
+    <string name="hint_universal_bridge_message">Universal Bridge Message</string>
+    <string name="action_send_to_miniapp">Send to MiniApp</string>
+    <string name="universal_message_bridge_will_be_sent">The Json info will be sent to MiniApp via universal bridge.</string>
+    <string name="please_input_the_message">Please input the message</string>
+    <string name="error_send_json_to_mini_app_message_cannot_be_empty">Unable to send the message: The message cannot be empty</string>
+    <string name="lb_general">General</string>
+    <string name="add_new_email">Add new email</string>
+    <string name="hint_set_primary_color">Primary Color</string>
+    <string name="hint_set_secondary_color">Secondary Color</string>
+    <string name="theme_colors">Theme Colors</string>
+    <string name="mini_app_analytics">MiniApp Analytics Logs</string>
+    <string name="action_analytics_log">Logs</string>
+
+</resources>

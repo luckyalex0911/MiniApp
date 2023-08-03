@@ -1,0 +1,22 @@
+apply plugin: 'net.ltgt.errorprone'
+
+dependencies {
+  if(!JavaVersion.current().java9Compatible) {
+    // see https://github.com/tbroyer/gradle-errorprone-plugin#jdk-8-support
+    errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
+  }
+  errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+  errorprone 'com.uber.nullaway:nullaway:0.6.5' // see https://github.com/uber/NullAway/issues/247#issuecomment-476015654
+  annotationProcessor 'com.uber.nullaway:nullaway:0.6.5'
+  testAnnotationProcessor 'com.uber.nullaway:nullaway:0.6.5'
+}
+
+tasks.withType(JavaCompile) {
+  options.errorprone {
+    disableWarningsInGeneratedCode = true
+    error("NullAway")
+    option("NullAway:AnnotatedPackages", "com.uber")
+    // Adding (-Xep:ParameterName:OFF) due to issue: https://github.com/google/error-prone/issues/780.
+    errorproneArgs = ['-Xep:ParameterName:OFF']
+  }
+}
